@@ -73,6 +73,11 @@ const menudata=reactive({
     label:"历史记录",
     url:"history",
      icon:"game-icons:histogram"
+  },
+  'editorcode':{
+    label:"在线编辑代码",
+    url:'editorcode',
+    icon:"arcticons:code-editor"
   }
 })
 

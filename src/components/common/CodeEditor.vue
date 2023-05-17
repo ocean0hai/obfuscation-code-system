@@ -1,5 +1,9 @@
 <template>
-  <codemirror v-model="code" 
+  <button @click="getValue">获取</button>
+  <button @click="copyCode">复制代码</button>
+  <codemirror 
+    v-model="code" 
+    ref="jsonEditor"
     placeholder="Code gose here..." 
     :style="{ height: '100%' }" 
     :autofocus="true"
@@ -12,7 +16,7 @@
 import { Codemirror } from "vue-codemirror";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { cpp } from "@codemirror/lang-cpp"
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { EditorView } from "@codemirror/view"
 
 let myTheme = EditorView.theme({
@@ -51,11 +55,25 @@ let myTheme = EditorView.theme({
 interface IProps {
     height?: string,
 }
+const code=ref(``)
+const jsonEditor=ref<any>(null) 
+// const getCode=computed(())
+
+
+function getValue(){
+  console.log(code.value);
+  console.log('json',jsonEditor.value) 
+}
+function copyCode(){
+  const inputs=document.createElement('input')
+  inputs.value=code.value
+  document.body.appendChild(inputs)
+  inputs.select()
+}
 // 接受的参数
 const props = withDefaults(defineProps<IProps>(), {
     height: '400px'
 })
-const code = ref(``);
 const extensions = [cpp(), myTheme];
 const Change = () => {    }
 </script>

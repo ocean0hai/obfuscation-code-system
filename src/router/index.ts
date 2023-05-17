@@ -30,6 +30,7 @@ const routes = [
       { path:"flatten",name:'flatten',component:  ()=>import("@/pages/Flatten.vue")},
       { path:"our", name:'our', component:  ()=>import("@/pages/Our.vue")},
       { path:"history",  name:"history",component:()=>import("@/pages/History.vue") },
+      { path:"editorcode",  name:"editorcode",component:()=>import("@/pages/EditorCode.vue") },
     ]
   },
   {
