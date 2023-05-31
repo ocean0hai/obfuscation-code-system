@@ -5,7 +5,10 @@
     <el-dialog v-model="visible" :show-close="false">
       <template #header="{ close}">
         <div class="flex h-6 justify-between">
-          <h6>时间：20223-04-09</h6>
+
+          <h6>时间:{{ fileObj.time }}</h6>
+          <h6>文件id:{{ fileObj.time }}</h6>
+          <h6>文件类型：{{ fileObj.type }}</h6>
           <el-button type="danger" @click="close">
             <Icon icon="ic:baseline-close" />
           </el-button>
@@ -27,24 +30,23 @@ const{fileId}=defineProps<{
 }>()
 
 const visible = ref(false)
-let tableData=reactive<any>([
+const fileObj=ref({
+  time:'',
+  type:'',
+  id:1
+})
+let tableData=ref<any>([
   {
     label: "文件名",
-    originalFile: "",
+    originFile: "",
     resultFile: "",
     key:'name'
   },
   {
     label: "文件大小",
-    originalFile: "",
+    originFile: "",
     resultFile: "",
     key:'momery'
-  },
-  {
-    label:"文件类型",
-    originalFile:'',
-    resultFile:'',
-    key:'type'
   }
 ])
 const colums=ref([
@@ -64,10 +66,16 @@ const colums=ref([
 async function getItem(){
   visible.value=true
   const res:any = await api.get(`/api/file/id/${fileId}`)
-  console.log(res);
-  
   if(res.code){
-
+    const {name,memory,createTime,originalFileId,originalFileName,type}=res.data 
+    fileObj.value={
+      type:type,
+      time:createTime,
+      id:originalFileId  
+    }
+    tableData.value[0].originFile=originalFileName
+    tableData.value[0].resultFile=name
+    tableData.value[1].originFile=memory
   }
 }
 </script>

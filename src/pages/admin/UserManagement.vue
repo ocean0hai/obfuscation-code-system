@@ -48,24 +48,22 @@ const columns=ref([
   }
 ])
 //得到数据表
-async function getUser(num:number){
+async function getUser(num:number,name=''){
   const res:any=await api.get('/user/page',{
     params:{
       pageNum:num,
-      pageSize:10
+      pageSize:10,
+      username:name
     }
   })
-  console.log(res);
-  
   if (res.code===200) {
-    const {total,records,pages}=res.data
+    const {total,records}=res.data
     data.value=records
     userTotal.value=total 
   }
 }
 //操作
 async function submitForm(data:objType){
-  console.log(data);
   childRef.Colse()
 }
 async function deleteData(item:objType){
@@ -75,10 +73,13 @@ async function deleteData(item:objType){
 function handleCurrent(val:number){
   getUser(val) 
 }
-const searchValue=ref<string>('')
-async function  searchUser() {
-  console.log(searchValue);
-  // const res:any = await api.get(`/user/query/${searchUser}`)
+
+async function  searchUser(value:string) {
+  if (value==='') {
+    getUser(1) 
+  }else{
+    getUser(1,value)
+  }
 }
 
 </script>
@@ -89,11 +90,7 @@ async function  searchUser() {
     <div>
       <div class="w-full h-12">
         <div class="w-1/3 float-right mr-2">
-          <el-input  v-model="searchValue" @change="searchUser" class="w-50 m-2" placeholder="输入用户Id">
-            <template #prefix>
-              <Icon icon="material-symbols:search" ></Icon>
-            </template>
-          </el-input>
+          <Search text="请输入用户id" @onChange="searchUser" />
         </div>
       </div>
     </div>

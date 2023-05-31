@@ -6,19 +6,13 @@ const props=defineProps<{
     modelValue: String,
 }>()
 
-// const proxy = ref(modelValue);
-
-// watch(
-//   () => proxy.value,
-//   (v) => emits("update:modelValue",v)
-// );
 const proxy=computed({
-    get() {
-        return props.modelValue
-      },
-      set(value) {
-        emits('update:modelValue', value)
-      }
+  get() {
+      return props.modelValue
+    },
+    set(value) {
+      emits('update:modelValue', value)
+    }
 })
 
 </script>

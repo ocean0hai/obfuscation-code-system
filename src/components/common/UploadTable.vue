@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { reactive,defineProps, ref } from 'vue';
-import { genFileId } from 'element-plus'
+import { ElMessage, genFileId } from 'element-plus'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 import Table from './Table.vue';
 import { dataType } from '@/type/table';
@@ -50,20 +50,16 @@ function handleChange(file:any) {
   tableData[0].content = fileName;
   tableData[1].content = nBytes+(count===-1 ? 'B':aMultiples[count]);
   tableData[2].content = filetype;
-  store.changUpload(filetype,fileName)
-}
-function beforeFileUpload(res:any){
-console.log(res);
-
 }
 
-function onSuccess(response: any){
-   console.log(response);
+function successfile(res: any,uploadFile:any,uploadFiles:any){
    
-}
-function onError(res:any){
-  console.log(res);
-  
+  if (res.code===200) {
+    ElMessage.success(res.msg)
+    store.changUpload('fdas',res.data.name) 
+  }else{
+    ElMessage.warning(res.msg)
+  }
 }
 </script>
 
@@ -73,22 +69,14 @@ function onError(res:any){
       <h2>请上传需要保护的文件</h2>
       <!-- action="http://8.130.113.197:8080/api/file/upload" -->
       <el-upload
-        v-model:file-list="fileList"
         action="http://8.130.113.197:8080/api/file/upload"
-        :auto-upload="false"
         class="upload-demo"
-        :limit="1"
         :on-change="handleChange"
-        :before-upload="beforeFileUpload"
-        :on-success='onSuccess'
-        :on-error="onError"
+        :limit="1"
+        :on-success='successfile'
       >
         <el-button size="small" type="primary">选择文件</el-button>
-        <template #tip>
-          <div  class="el-upload__tip">
-            *支持.c...格式
-          </div>
-        </template>
+        <div slot="tip" class="el-upload__tip">*支持.c...格式</div>
       </el-upload>
       </div>
       <div>

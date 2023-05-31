@@ -41,17 +41,17 @@ const routes = [
      {
       path:"usermanagement",
       name:"usermanagement",
-      component:()=>import('@/pages/UserManagement.vue')
+      component:()=>import('@/pages/admin/UserManagement.vue')
      },
      {
       path:'filemanagement',
       name:'filemanagement',
-      component:()=>import('@/pages/FileManagement.vue')
+      component:()=>import('@/pages/admin/FileManagement.vue')
      },
      {
       path:'dataanalysis',
       name:'dataanalysis',
-      component:()=>import('@/pages/DataAnalysis.vue')
+      component:()=>import('@/pages/admin/DataAnalysis.vue')
      }
     ]
   },

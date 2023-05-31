@@ -18,7 +18,7 @@ defineExpose({
 </script>
 
 <template>
-  <div>
+  <div class="mt-10">
     <div v-for="({msg,type,key}) in data" >
       <div :key="key" class="tooltip tooltip-right z-50" :data-tip="msg">
        <el-checkbox @change="handleCheckAllChange (key)"  />{{str+key}}

@@ -1,5 +1,4 @@
 <template>
-  <button @click="getValue">获取</button>
   <button @click="copyCode">复制代码</button>
   <codemirror 
     v-model="code" 
@@ -14,10 +13,10 @@
 </template>
 <script lang="ts" setup>
 import { Codemirror } from "vue-codemirror";
-import { oneDark } from "@codemirror/theme-one-dark";
 import { cpp } from "@codemirror/lang-cpp"
-import { computed, ref } from "vue";
+import {  ref } from "vue";
 import { EditorView } from "@codemirror/view"
+import { ElMessage } from "element-plus";
 
 let myTheme = EditorView.theme({
   // 输入的字体颜色
@@ -61,7 +60,6 @@ const jsonEditor=ref<any>(null)
 
 
 function getValue(){
-  console.log(code.value);
   console.log('json',jsonEditor.value) 
 }
 function copyCode(){
@@ -69,6 +67,9 @@ function copyCode(){
   inputs.value=code.value
   document.body.appendChild(inputs)
   inputs.select()
+  ElMessage.success('复制成功！')
+  document.execCommand('Copy')
+  inputs.remove()
 }
 // 接受的参数
 const props = withDefaults(defineProps<IProps>(), {
@@ -77,3 +78,4 @@ const props = withDefaults(defineProps<IProps>(), {
 const extensions = [cpp(), myTheme];
 const Change = () => {    }
 </script>
+

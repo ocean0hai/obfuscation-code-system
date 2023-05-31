@@ -4,7 +4,7 @@ import {userType,columnsType,fileType} from '@/type/table'
 import { objType } from '@/type';
 
 const {data,columns}=defineProps<{
-  data:Array<objType>,
+  data:Array<any>,
   columns:Array<columnsType>
 }>()
 

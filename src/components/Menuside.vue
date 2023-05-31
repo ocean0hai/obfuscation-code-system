@@ -31,17 +31,11 @@
 <script lang="ts" setup>
 import { computed, reactive, ref } from 'vue'
 import { Icon } from '@iconify/vue';
-// import emitter from '../../utils/bus';
 import {useRouter} from  'vue-router'
 import { useRoute } from "vue-router";
 const route = useRoute();
 const router=useRouter()
 
-interface routertype{
-  label:string,
-  url:string,
-  icon:string
-}
 //路由
 const menudata=reactive({
   'index':{
@@ -65,9 +59,9 @@ const menudata=reactive({
     icon:"icon-park-solid:file-protection-one"
   }],
   'our':{
-    label:"关于我们",
+    label:"我们",
     url:"our",
-    icon:"ph:users-light"
+    icon:"icon-park:file-protection-one"
   },
   'history':{
     label:"历史记录",

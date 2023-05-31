@@ -18,11 +18,12 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use((response: any) => {
-  if (response.data.code !== 200) {
-    ElMessage.error(response.data.error as string);
-    return;
+  if(response.data?.code!==500){
+    return response.data
+  }else{
+    ElMessage.error(response.data.msg as string)
+    return ;
   }
-  return response.data;
 });
 
 export { api };

@@ -26,21 +26,25 @@ import { Icon } from '@iconify/vue';
 const router=useRouter()
 const data=reactive([
   {
-      id:'personal',
-      name:"个人中心"
+    id:'personal',
+    name:"个人中心"
   },
   {
-      id:'quit',
-      name:"退出"
+    id:'admin',
+    name:'后台管理'
+  },
+  {
+    id:'quit',
+    name:"退出"
   }
 ])
 function handleCommand(item:string){
   if(item==='quit'){
     localStorage.clear()
     router.push({path:'/login'})
-  }else{
-    router.push({path:'/personal'})
-  }
+  }else if(item==='admin'){
+    router.push({path:'/admin'})
+  }else router.push({path:'/personal'})
 }
 </script>
 

@@ -4,8 +4,9 @@ import AdminDialog from '@/components/admin/AdminDialog.vue';
 import { objType } from '@/type';
 import { Icon } from '@iconify/vue';
 import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
 import { onMounted,ref } from 'vue';
-
+const router=useRouter()
 onMounted(()=>{
    getUser() 
 })
@@ -14,8 +15,15 @@ let userSub=ref<objType>({})
 
 async function getUser() {
   const uid=localStorage.getItem('loginId')
+  console.log(uid);
+  
   const res:any = await api.get(`/user/query/${uid}`)
-  userData.value={...res.data,password:''}
+  if (typeof res === 'undefined') {
+    return ;
+  }
+ 
+  userData.value={...res.data}
+  userData.value['password']=''
   console.log(res);
   Object.keys(userData.value).forEach(item=>{
     if(!inputP(item))userSub.value[item]=userData.value[item]
@@ -29,15 +37,12 @@ async function putUser() {
   }
   const uid=localStorage.getItem('loginId')
   const res:any=await api.put('/user/update',{
-     id:uid,
+    id:uid,
     ...data 
   })
   console.log(res);
   
   if(res.code===200)ElMessage.success('修改成功！')
-}
-function submitForm(data:any){
-  console.log(data);
 }
 
 function inputValue(key:string,value:string){
@@ -48,10 +53,12 @@ function inputP(str:string){
   const arr=['id','state','createTime','updateTime','status']
   return arr.includes(str)
 }
+
 </script>
 
 <template>
-  <div class="w-[500px]  mx-auto">
+  <div class="w-[500px]  mx-auto mt-5">
+    <Icon @click="router.push({path:'/home/index'})" class="w-10 h-10" icon="pajamas:go-back" />
      <div class=" mx-auto w-[300px] ">
        <Icon class="w-[300px] h-[300px]" icon="ic:baseline-person" />
      </div>

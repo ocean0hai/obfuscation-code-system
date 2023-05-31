@@ -23,24 +23,18 @@ const dataForm=ref<Array<formType>>([
 
 //跳转home
 async function submitForm (data:object) {
-  data={
-    username:'admin',
-    password:'111111'
-  } 
   const res:any= await api.post('/user/login',{
     ...data
   })
   if(res.code===200){
-    console.log(res.data);
-    
-    localStorage.setItem('loginId',res.data.loginId)
-    localStorage.setItem('token',res.data.tokenValue)
+    console.log(res);
+    localStorage.setItem('loginId',res.data.uid)
+    localStorage.setItem('token',res.data.token)
     ElMessage.success('登录成功！')
     router.push({path:'home'})
   }else{
     ElMessage.error('用户名或密码错误！')
   }
-  
 }
   //跳转到注册
 function goRegister(){
@@ -55,9 +49,9 @@ function goRegister(){
   <!-- logo区域 -->
   <div class="w-[600px] absolute top-[50%] left-[50%] translate-x-[-50%]  translate-y-[-50%] flex border p-4">
     <div class=" h-full w-1/3 inline-block">
-      <img class="w-full" src="../../public/vite.svg" alt="" />
+      <img class="w-full" src="../../public/2.png" alt="" />
     </div>
-    <div class="w-1/2 mt-3 h-full inline-block">
+    <div class="w-1/2 mt-6 h-full inline-block">
       <Form :data="dataForm">
         <template #submit="subData">
            <el-button @click="goRegister">去注册</el-button>

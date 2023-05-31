@@ -32,7 +32,10 @@ const active = computed(() => route.name); // 需要使用computed才可以获�
 
 <template>
   <div class="w-[1200px] mx-auto">
-    <h2 class=" text-center ">后台管理</h2>
+    <div class="flex">
+      <Icon @click="$router.push('/home/index')" class="w-16 h-20" icon="icon-park-solid:back" />
+      <h2  class=" w-[1200px] text-center ">后台管理</h2>
+    </div>
     <div class="w-full flex">
       <!-- 导航 -->
       <div class="w-[200px]">
