@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Table from '@/components/admin/Table.vue';
-import { ref,onMounted,getCurrentInstance } from 'vue';
+import { ref,onMounted,getCurrentInstance, nextTick } from 'vue';
 import AdminDialog from '@/components/admin/AdminDialog.vue';
 import Search from '@/components/common/Search.vue';
 import { userType } from '@/type/table';
@@ -47,29 +47,19 @@ const {
   searchData,
   data,
   handleCurrent,
+  inputValue,
   putUser,
   userobj
 }=getUserDate('/user/page')
 
-const childRef:any=ref(null)
 //初始化数据
 onMounted(()=>{
   getData()
 })
-
-
-async function submitForm(data:objType){
-  console.log(data);
-  childRef.Colse()
-}
 function inputP(str:string){
   const arr=['id','state','createTime','updateTime','status']
   return arr.includes(str)
 }
-function inputValue(key:string,value:string){
-  userobj.value[key]=value
-}
-
 </script>
 
 <template>
@@ -85,11 +75,10 @@ function inputValue(key:string,value:string){
      <Table :columns="columns" :data="data">
         <template #operation="{item}">
           <div class="w-32 flex">
-            <AdminDialog ref="childRef">
+            <AdminDialog  :id="item.id" :put-user="putUser">
               <template #button>
                 修改 
               </template>
-
               <template #customize>
                 <div class="w-full " v-for="(value,key) in item " :label="key">
                   <el-form-item v-if="!inputP(key+'')"  :label="key" >
@@ -101,9 +90,6 @@ function inputValue(key:string,value:string){
                         autocomplete="off" />  
                   </el-form-item> 
                 </div>
-                  <div class="w-16 mx-auto">
-                    <button class="btn" @click="putUser">确定</button> 
-                  </div>
               </template>
             </AdminDialog>
             <button class="btn mx-2 " @click="deleteData(item.id)">删除</button>        

@@ -8,13 +8,7 @@ export function getUserDate(address:string){
   const datatotal=ref<number>(1)
   const currentpage=ref<number>(1)
   const search=ref<string>('')
-  const userobj=ref<objType>({
-    id:1,
-    username:"",
-    phone:'',
-    password:"",
-    email:""
-  })
+  const userobj=ref<objType>({})
   async function getData(name='') {
     const res:any= await api.get(address,{
       params:{
@@ -34,8 +28,6 @@ export function getUserDate(address:string){
     }
   }
   async function deleteData(id:number){
-    console.log(id);
-    
     if(data.value.length===1)datatotal.value-=1
     const res:any= await api.put(`/user/status/${id}`)
     if ( res?.code) {
@@ -64,9 +56,17 @@ export function getUserDate(address:string){
     currentpage.value=val
     getData()
   }
-  async function putUser() {
-    console.log(userobj);
-    
+  //更新用户信息
+  async function putUser(id:number) {
+    userobj.value['id']=id
+    const  res:any= await api.put('/user/update',{
+      ...userobj.value
+    })
+    if(res?.code===200)ElMessage.success('修改成功！！')
+    getData()
+  }
+  function inputValue(key:string,value:string){
+    userobj.value[key]=value
   }
   return{
     deleteData,
@@ -75,6 +75,7 @@ export function getUserDate(address:string){
     getData,
     userobj,
     putUser,
+    inputValue,
     data,
     datatotal
   } 

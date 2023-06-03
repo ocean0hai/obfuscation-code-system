@@ -46,11 +46,6 @@ const {
   handleCurrent
 }=getTableDate('/api/file/page')
 
-// onMounted(()=>{
-//   getData()
-// })
-const fileTotal=ref<number>(1)
-
 onMounted(() => {
  getData()
 })

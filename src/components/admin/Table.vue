@@ -16,16 +16,16 @@ const {data,columns}=defineProps<{
         <!-- head -->
         <thead>
           <tr class="flex">
-            <th v-for="(item,index) in columns" class="w-36 ">{{ item.label }}</th>
+            <th v-for="(item,index) in columns" class="w-32 ">{{ item.label }}</th>
             <th class="w-36" >操作</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item,index) in data" :key="index" class="flex">
-            <td v-for="(value,key) in item" :key="key" class="w-36 block  truncate">
+            <td v-for="(value,key) in item" :key="key" class="w-32 text-center block  truncate">
               {{ value }} 
             </td>
-            <td class="w-20">
+            <td class="text-center">
               <slot name="operation" :item="item">
               </slot>
             </td>

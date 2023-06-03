@@ -12,11 +12,9 @@ onMounted(()=>{
 })
 const userData=ref<objType>({})
 let userSub=ref<objType>({})
-
+const childRef:any=ref(null)
 async function getUser() {
   const uid=localStorage.getItem('loginId')
-  console.log(uid);
-  
   const res:any = await api.get(`/user/query/${uid}`)
   if (typeof res === 'undefined') {
     return ;
@@ -30,7 +28,9 @@ async function getUser() {
   })
 }
 
-async function putUser() {
+async function putUser(id:number) {
+  console.log('fasdfa');
+  
   const {password,...data}=userSub.value
   if (password!=='') {
      data['password']=password
@@ -40,11 +40,9 @@ async function putUser() {
     id:uid,
     ...data 
   })
-  console.log(res);
-  
-  if(res.code===200)ElMessage.success('修改成功！')
+  getUser()
+  if(res?.code===200)ElMessage.success('修改成功！')
 }
-
 function inputValue(key:string,value:string){
   userSub.value[key]=value
 }
@@ -71,7 +69,7 @@ function inputP(str:string){
       </div>
      </div>
      <div class="w-24 mx-auto my-2">
-       <AdminDialog>
+       <AdminDialog :put-user="putUser" >
         <template #button>
           修改信息
         </template>
@@ -85,9 +83,6 @@ function inputP(str:string){
                   @blur="inputValue(key+'', ($event.target as HTMLInputElement).value)"
                   autocomplete="off" />  
             </el-form-item> 
-          </div>
-          <div class="w-16 mx-auto">
-            <button class="btn" @click="putUser">确定</button> 
           </div>
         </template>
        </AdminDialog>

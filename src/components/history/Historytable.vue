@@ -1,13 +1,9 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
-import {historytableType} from '@/type/table'
-import axios from 'axios';
+import { onMounted } from 'vue'
 import Button from '../common/Button.vue';
 import { getTableDate } from '@/hooks/getData';
 import Dialog from '../common/Dialog.vue';
 import Search from '../common/Search.vue';
-import { api } from '@/api/request';
-import { ElMessage } from 'element-plus';
 const {
   getData,
   datatotal,
@@ -20,49 +16,10 @@ const {
 onMounted(()=>{
   getData()
 })
-async function downLoad(name:string) {
- axios({
-  url: `http://8.130.113.197:8080/api/file/download/${name}`,
-  method: 'GET',
-  responseType: 'blob', // important
-  headers:{'Authorization':localStorage.getItem('token')}
-}).then((response) => {
-  const url = window.URL.createObjectURL(new Blob([response.data]));
-  const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download',name); // or any other extension
-  document.body.appendChild(link);
-  link.click();
-}); 
-}
-
-async function down(name:string) {
-  await axios({
- 		method:'get',//请求方式
-    url: `http://8.130.113.197:8080/api/file/download/${name}`,
- 		responseType:'blob',//文件流将会被转成
-    headers:{'Authorization':localStorage.getItem('token')}
- 	}).then(res => {
-    console.log(res);
-    
-    const blob = new Blob([res.data]);//处理文档流
-    const fileName = name;
-    const down = document.createElement('a');
-    down.download = fileName;
-    down.style.display = 'none';//隐藏,没必要展示出来
-    down.href = URL.createObjectURL(blob);
-    document.body.appendChild(down);
-    down.click();
-    URL.revokeObjectURL(down.href); // 释放URL 对象
-    document.body.removeChild(down);//下载完成移除
-})
-}
-
 
 </script>
 
 <template>
-
   <div>
     <div class="w-full h-12">
       <div class="w-1/3 float-right mr-2">
@@ -88,7 +45,7 @@ async function down(name:string) {
               <td class="w-48 block truncate">
                 <a
                   class=" text-blue-300" 
-                  @click="down( item.resultFileName )"
+                  :href="`http://8.130.113.197:8080/api/file/download/${ item.resultFileName}`"
                 > 
                   {{ item.resultFileName }}
                 </a>
