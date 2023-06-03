@@ -6,11 +6,16 @@ const {upload}=store
 //pType 保护类型
 export async function submitParameter(parameter:Array<string>){
   const {fileName}=upload
+  console.log('fileNmae',fileName);
+  
   const pType ='2'
   const res:any= await api.post(`/api/file/protect/${pType}/${fileName}`,parameter)
-  if (res.code===200) {
+  if (res?.code===200) {
     ElMessage.success('文件保护成功！！') 
-  } 
+  }else{
+    console.log(res);
+    
+  }
 }
 
 // ['1',34]

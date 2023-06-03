@@ -26,7 +26,7 @@ async function submitForm (data:object) {
   const res:any= await api.post('/user/login',{
     ...data
   })
-  if(res.code===200){
+  if(res?.code===200){
     console.log(res);
     localStorage.setItem('loginId',res.data.uid)
     localStorage.setItem('token',res.data.token)

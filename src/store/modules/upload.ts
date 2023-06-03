@@ -3,14 +3,12 @@ const uploadStore=defineStore('upload',{
     state:()=>{
         return{
          upload:{
-            pType:'',
             fileName:''
          }  
         }
     },
     actions:{
-        changUpload(pType:string,fileName:string){
-            this.upload.pType=pType
+        changUpload(fileName:string){
             this.upload.fileName=fileName
         }
     }

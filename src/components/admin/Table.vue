@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { defineProps,onMounted, ref } from 'vue'
 import {userType,columnsType,fileType} from '@/type/table'
-import { objType } from '@/type';
 
 const {data,columns}=defineProps<{
   data:Array<any>,
@@ -23,13 +22,13 @@ const {data,columns}=defineProps<{
         </thead>
         <tbody>
           <tr v-for="(item,index) in data" :key="index" class="flex">
-            <th v-for="(value,key) in item" :key="key" class="w-36 block  truncate">
+            <td v-for="(value,key) in item" :key="key" class="w-36 block  truncate">
               {{ value }} 
-            </th>
-            <th class="w-20">
+            </td>
+            <td class="w-20">
               <slot name="operation" :item="item">
               </slot>
-            </th>
+            </td>
           </tr>
         </tbody>
       </table>

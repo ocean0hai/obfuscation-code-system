@@ -59,7 +59,7 @@ const menudata=reactive({
     icon:"icon-park-solid:file-protection-one"
   }],
   'our':{
-    label:"我们",
+    label:"KNE",
     url:"our",
     icon:"icon-park:file-protection-one"
   },

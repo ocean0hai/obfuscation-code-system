@@ -44,7 +44,7 @@ const {
   searchData,
   data,
   handleCurrent
-}=getTableDate('/api/file/manage')
+}=getTableDate('/api/file/page')
 
 // onMounted(()=>{
 //   getData()

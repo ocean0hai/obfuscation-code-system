@@ -5,6 +5,7 @@ import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 import Table from './Table.vue';
 import { dataType } from '@/type/table';
 import { uploadStore } from '@/store';
+import { api } from '@/api/request';
 const store=uploadStore()
 let fileList=reactive([])
 let tableData=reactive<any>([
@@ -35,8 +36,14 @@ const submitUpload = () => {
   upload.value!.submit()
 }
 
-function handleChange(file:any) {
-  // let [fileName,filetype ]= file.name.split(".");
+function handleChange(files:any) {
+  if(files.target.files.length !== 1){
+    ElMessage.warning('只能上传一个文件！')
+    return ;
+  }
+  const file=files.target.files[0]
+  
+  uploadFile(file)
   const index=file.name.lastIndexOf(".")
   const [fileName,filetype ]=[file.name.substring(0,index),file.name.substring(index+1)]
 
@@ -52,32 +59,37 @@ function handleChange(file:any) {
   tableData[2].content = filetype;
 }
 
-function successfile(res: any,uploadFile:any,uploadFiles:any){
-   
-  if (res.code===200) {
-    ElMessage.success(res.msg)
-    store.changUpload('fdas',res.data.name) 
-  }else{
-    ElMessage.warning(res.msg)
+async function  uploadFile(file:any) {
+  const res:any = await api.post('/api/file/upload',{
+    file:file
+  },
+  {
+    headers:{
+      'Content-Type':'multipart/form-data'
+    }
+  }) 
+  if (res?.code===200) {
+     store.changUpload(res.data.name)
+    ElMessage.success('上传成功！！')
   }
 }
+
 </script>
 
 <template>
-  <div class=" ">
-     <div class="mx-auto">
+  <div class="">
+     <div class="mx-auto my-5">
       <h2>请上传需要保护的文件</h2>
       <!-- action="http://8.130.113.197:8080/api/file/upload" -->
-      <el-upload
-        action="http://8.130.113.197:8080/api/file/upload"
+      <input
+        type="file"
         class="upload-demo"
-        :on-change="handleChange"
+        @change="handleChange"
         :limit="1"
-        :on-success='successfile'
-      >
-        <el-button size="small" type="primary">选择文件</el-button>
-        <div slot="tip" class="el-upload__tip">*支持.c...格式</div>
-      </el-upload>
+      />
+        <!-- <el-button size="small" type="primary">选择文件</el-button> -->
+        <div slot="tip" class="text-red-500">*支持.c...格式(只能上传单个文件)</div>
+
       </div>
       <div>
         <Table :data="tableData"></Table>

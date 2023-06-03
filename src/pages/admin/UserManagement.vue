@@ -4,17 +4,10 @@ import { ref,onMounted,getCurrentInstance } from 'vue';
 import AdminDialog from '@/components/admin/AdminDialog.vue';
 import Search from '@/components/common/Search.vue';
 import { userType } from '@/type/table';
-import { Icon } from '@iconify/vue';
 import { api } from '@/api/request';
 import { objType,formType } from '@/type';
 import AdminForm from '@/components/admin/AdminForm.vue';
-const childRef:any=ref(null)
-//初始化数据
-onMounted(()=>{
-  getUser(1)
-})
-const data=ref<Array<userType>>([])
-const userTotal=ref<number>(1)
+import { getUserDate } from '@/hooks/getUser';
 const columns=ref([
   {
     key:'id',
@@ -43,43 +36,38 @@ const columns=ref([
   },
   {
     key:'state',
-    label:'登录状态',
+    label:'是否禁止',
     dataIndex:'state'
   }
 ])
-//得到数据表
-async function getUser(num:number,name=''){
-  const res:any=await api.get('/user/page',{
-    params:{
-      pageNum:num,
-      pageSize:10,
-      username:name
-    }
-  })
-  if (res.code===200) {
-    const {total,records}=res.data
-    data.value=records
-    userTotal.value=total 
-  }
-}
-//操作
+const {
+  getData,
+  datatotal,
+  deleteData,
+  searchData,
+  data,
+  handleCurrent,
+  putUser,
+  userobj
+}=getUserDate('/user/page')
+
+const childRef:any=ref(null)
+//初始化数据
+onMounted(()=>{
+  getData()
+})
+
+
 async function submitForm(data:objType){
+  console.log(data);
   childRef.Colse()
 }
-async function deleteData(item:objType){
-  console.log(item.id);
-  // const res:any=await api.delete(`/api/file/remove/user/${id}`)
+function inputP(str:string){
+  const arr=['id','state','createTime','updateTime','status']
+  return arr.includes(str)
 }
-function handleCurrent(val:number){
-  getUser(val) 
-}
-
-async function  searchUser(value:string) {
-  if (value==='') {
-    getUser(1) 
-  }else{
-    getUser(1,value)
-  }
+function inputValue(key:string,value:string){
+  userobj.value[key]=value
 }
 
 </script>
@@ -90,7 +78,7 @@ async function  searchUser(value:string) {
     <div>
       <div class="w-full h-12">
         <div class="w-1/3 float-right mr-2">
-          <Search text="请输入用户id" @onChange="searchUser" />
+          <Search text="请输入用户id" @onChange="searchData" />
         </div>
       </div>
     </div>
@@ -101,17 +89,24 @@ async function  searchUser(value:string) {
               <template #button>
                 修改 
               </template>
-              <template  #customize>
-                <div class="w-full ">
-                  <AdminForm :babel="data" :item="item">   
-                   <template #submit="subData">
-                     <button class="btn ml-16" @click="submitForm(subData.data)">确定</button>
-                   </template>
-                  </AdminForm>   
+
+              <template #customize>
+                <div class="w-full " v-for="(value,key) in item " :label="key">
+                  <el-form-item v-if="!inputP(key+'')"  :label="key" >
+                    <!-- 普通的输入框 -->
+                      <input
+                        class="input w-full input-bordered h-8" 
+                        :value="userobj[key]"
+                        @blur="inputValue(key+'', ($event.target as HTMLInputElement).value)"
+                        autocomplete="off" />  
+                  </el-form-item> 
                 </div>
+                  <div class="w-16 mx-auto">
+                    <button class="btn" @click="putUser">确定</button> 
+                  </div>
               </template>
             </AdminDialog>
-            <button class="btn mx-2 " @click="deleteData(item)">删除</button>        
+            <button class="btn mx-2 " @click="deleteData(item.id)">删除</button>        
           </div>
         </template> 
      </Table>
@@ -123,12 +118,10 @@ async function  searchUser(value:string) {
         :page-size="10"
         background 
         layout="prev, pager, next" 
-        :total="userTotal" />
+        :total="datatotal" />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped >
 
-</style>

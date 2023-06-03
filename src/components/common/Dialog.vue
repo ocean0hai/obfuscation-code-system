@@ -7,7 +7,7 @@
         <div class="flex h-6 justify-between">
 
           <h6>时间:{{ fileObj.time }}</h6>
-          <h6>文件id:{{ fileObj.time }}</h6>
+          <h6>文件id:{{ fileObj.id }}</h6>
           <h6>文件类型：{{ fileObj.type }}</h6>
           <el-button type="danger" @click="close">
             <Icon icon="ic:baseline-close" />

@@ -1,22 +1,28 @@
 import { api } from "@/api/request";
+import { objType } from "@/type";
 import { ElMessage } from "element-plus";
 import { ref } from "vue";
 
-export function getTableDate(address:string){
+export function getUserDate(address:string){
   const data=ref<Array<any>>([])
   const datatotal=ref<number>(1)
   const currentpage=ref<number>(1)
   const search=ref<string>('')
+  const userobj=ref<objType>({
+    id:1,
+    username:"",
+    phone:'',
+    password:"",
+    email:""
+  })
   async function getData(name='') {
     const res:any= await api.get(address,{
       params:{
-        page:currentpage.value,
-        limit:10,
-        fileName:search.value
+        pageNum:currentpage.value,
+        pageSize:10,
+        username:search.value
       }
     })
-    console.log(res);
-    
     
     if (res?.code===200) {
       const {total,records}=res.data
@@ -28,8 +34,10 @@ export function getTableDate(address:string){
     }
   }
   async function deleteData(id:number){
+    console.log(id);
+    
     if(data.value.length===1)datatotal.value-=1
-    const res:any= await api.delete(`/api/file/remove/fileId/${id}`)
+    const res:any= await api.put(`/user/status/${id}`)
     if ( res?.code) {
       ElMessage.success('删除成功！')
       getData() 
@@ -37,30 +45,36 @@ export function getTableDate(address:string){
       datatotal.value +=1
       ElMessage.error('删除失败！')
     }
-}
+  } 
 
-async function searchData(value:string){
-  if (value==='') {
-    search.value=''
+  async function searchData(value:string){
+    if (value==='') {
+      search.value=''
+      getData()
+      return ;
+    }else{
+      search.value=value
+      currentpage.value=1
+      getData(value)
+      
+    }
+  }
+  
+  async function handleCurrent(val:any) {
+    currentpage.value=val
     getData()
-    return ;
-  }else{
-    search.value=value
-    currentpage.value=1
-    getData(value)
+  }
+  async function putUser() {
+    console.log(userobj);
     
   }
-}
-
-async function handleCurrent(val:any) {
-  currentpage.value=val
-  getData()
-}
   return{
     deleteData,
     searchData,
     handleCurrent,
     getData,
+    userobj,
+    putUser,
     data,
     datatotal
   } 
