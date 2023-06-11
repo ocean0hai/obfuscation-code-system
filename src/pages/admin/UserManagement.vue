@@ -92,7 +92,7 @@ function inputP(str:string){
                 </div>
               </template>
             </AdminDialog>
-            <button class="btn mx-2 " @click="deleteData(item.id)">删除</button>        
+            <button class="btn mx-2 " @click="deleteData(item.id)">禁止</button>        
           </div>
         </template> 
      </Table>

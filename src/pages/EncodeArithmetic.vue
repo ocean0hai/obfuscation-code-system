@@ -2,7 +2,6 @@
 //指令替换
 import UploadTable from '@/components/common/UploadTable.vue';
 import TcodeParameter from '@/components/encodearithmetic/TcodeParameter.vue';
-import Button from '@/components/common/Button.vue';
 </script>
 
 <template>

@@ -5,7 +5,9 @@ import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve("./src"),
@@ -18,7 +20,7 @@ export default defineConfig({
 	},
 	server:{  //中转服务器
 		port: 8000, // 你需要定义的端口号
-        open: true, 
+    open: true, 
 		proxy:{ //通过代理实现跨域
 		  '/api':{
 			target:'http://8.130.113.197', //替换的服务器地址 

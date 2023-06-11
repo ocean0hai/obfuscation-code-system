@@ -1,16 +1,16 @@
 import { defineStore } from "pinia";
-const uploadStore=defineStore('upload',{
-    state:()=>{
-        return{
-         upload:{
-            fileName:''
-         }  
-        }
+const uploadStore = defineStore("upload", {
+  state: () => {
+    return {
+      upload: {
+        fileName: "",
+      },
+    };
+  },
+  actions: {
+    changUpload(fileName: string) {
+      this.upload.fileName = fileName;
     },
-    actions:{
-        changUpload(fileName:string){
-            this.upload.fileName=fileName
-        }
-    }
-})
-export default uploadStore
+  },
+});
+export default uploadStore;

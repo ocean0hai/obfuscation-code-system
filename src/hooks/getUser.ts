@@ -31,11 +31,11 @@ export function getUserDate(address:string){
     if(data.value.length===1)datatotal.value-=1
     const res:any= await api.put(`/user/status/${id}`)
     if ( res?.code) {
-      ElMessage.success('删除成功！')
+      ElMessage.success('操作成功！')
       getData() 
     }else{
       datatotal.value +=1
-      ElMessage.error('删除失败！')
+      ElMessage.error('操作失败！')
     }
   } 
 
@@ -62,7 +62,10 @@ export function getUserDate(address:string){
     const  res:any= await api.put('/user/update',{
       ...userobj.value
     })
-    if(res?.code===200)ElMessage.success('修改成功！！')
+    if(res?.code===200){
+      userobj.value={}
+      ElMessage.success('修改成功！！')
+    }
     getData()
   }
   function inputValue(key:string,value:string){

@@ -8,6 +8,7 @@ import Button from '@/components/common/Button.vue';
 <template>
   <div class="w-2/3 mx-auto">
     <UploadTable />
+    
     <TaddParameter />
   </div>
 </template>
