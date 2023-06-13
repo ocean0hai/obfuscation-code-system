@@ -23,6 +23,8 @@
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
+import { api } from '@/api/request';
+import { ElMessage } from 'element-plus';
 const router=useRouter()
 const data=reactive([
   {
@@ -38,13 +40,23 @@ const data=reactive([
     name:"退出"
   }
 ])
-function handleCommand(item:string){
+async function handleCommand(item:string){
   if(item==='quit'){
     localStorage.clear()
     router.push({path:'/login'})
-  }else if(item==='admin'){
+  }else if(item==='admin' && await admindetemine()){
+    
     router.push({path:'/admin'})
-  }else router.push({path:'/personal'})
+  }else if(item=='personal'){
+    router.push({path:'personal'})
+  }
+}
+async function admindetemine() {
+  const res:any = await api.get('user/identity') 
+  if(res?.code===200) return true;
+  else {
+    return false;
+  }
 }
 </script>
 

@@ -1,12 +1,8 @@
 <script lang="ts" setup>
 import Table from '@/components/admin/Table.vue';
-import { ref,onMounted,getCurrentInstance, nextTick } from 'vue';
+import { ref,onMounted} from 'vue';
 import AdminDialog from '@/components/admin/AdminDialog.vue';
 import Search from '@/components/common/Search.vue';
-import { userType } from '@/type/table';
-import { api } from '@/api/request';
-import { objType,formType } from '@/type';
-import AdminForm from '@/components/admin/AdminForm.vue';
 import { getUserDate } from '@/hooks/getUser';
 const columns=ref([
   {
@@ -68,7 +64,7 @@ function inputP(str:string){
     <div>
       <div class="w-full h-12">
         <div class="w-1/3 float-right mr-2">
-          <Search text="请输入用户id" @onChange="searchData" />
+          <Search text="请输入用户名" @onChange="searchData" />
         </div>
       </div>
     </div>
@@ -92,7 +88,7 @@ function inputP(str:string){
                 </div>
               </template>
             </AdminDialog>
-            <button class="btn mx-2 " @click="deleteData(item.id)">禁止</button>        
+            <button class="btn mx-2 " @click="deleteData(item.id)">{{ item.status === 0 ? '禁止':'解禁' }}</button>        
           </div>
         </template> 
      </Table>

@@ -10,11 +10,13 @@ export function getUserDate(address:string){
   const search=ref<string>('')
   const userobj=ref<objType>({})
   async function getData(name='') {
+    console.log(search.value);
+    
     const res:any= await api.get(address,{
       params:{
         pageNum:currentpage.value,
         pageSize:10,
-        username:search.value
+        userName:search.value
       }
     })
     
@@ -22,6 +24,7 @@ export function getUserDate(address:string){
       const {total,records}=res.data
       datatotal.value=total
       data.value=records
+      console.log(data.value);
       
     }else{
       ElMessage.error('出错了！！')

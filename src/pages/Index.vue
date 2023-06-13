@@ -5,7 +5,7 @@
 <template>
   <div>
     <div class="w-[500px] h-[500px] mx-auto">
-      <img  class="w-full h-full" src="../../public/使用流程图.png" alt="">
+      <img  class="w-full h-full" src="../../public/flowpath.png" alt="">
     </div>
   </div>
 </template>

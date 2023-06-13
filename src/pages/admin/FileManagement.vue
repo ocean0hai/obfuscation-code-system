@@ -57,7 +57,7 @@ onMounted(() => {
     <div>
       <div class="w-full h-12">
         <div class="w-1/3 float-right mr-2">
-          <Search text="请输入文件id" @onChange="searchData"/> 
+          <Search text="请输入文件名" @onChange="searchData"/> 
         </div>
       </div>
     </div>
