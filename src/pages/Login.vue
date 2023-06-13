@@ -27,7 +27,6 @@ async function submitForm (data:object) {
     ...data
   })
   if(res?.code===200){
-    console.log(res);
     localStorage.setItem('loginId',res.data.uid)
     localStorage.setItem('token',res.data.token)
     ElMessage.success('登录成功！')
