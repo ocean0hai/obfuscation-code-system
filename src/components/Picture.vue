@@ -24,7 +24,6 @@ import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import { api } from '@/api/request';
-import { ElMessage } from 'element-plus';
 const router=useRouter()
 const data=reactive([
   {
@@ -45,10 +44,9 @@ async function handleCommand(item:string){
     localStorage.clear()
     router.push({path:'/login'})
   }else if(item==='admin' && await admindetemine()){
-    
     router.push({path:'/admin'})
   }else if(item=='personal'){
-    router.push({path:'personal'})
+    router.push({path:'/personal'})
   }
 }
 async function admindetemine() {

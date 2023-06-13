@@ -15,8 +15,9 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use((response: any) => {
-  
-  if(response.data?.code!==500){
+   
+  if(response.data?.code !==500){
+      console.log(response.data)
     return response.data
   }else{
     ElMessage.error(response.data.msg as string)

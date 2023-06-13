@@ -11,16 +11,15 @@ function submitHandle(){
   
   let num=0
   num=checked1.value&&checked2.value ? 3 : checked1.value ? 1: checked2.value ? 2:0
-  
   if (num===0) {
     ElMessage.warning('选择必要参数！！') 
     return ;
   }
-  const subArr:Array<any>=[
+  const subArr:Array<string>=[
     num+'',
     number.value+''
   ]
-  
+  console.log(subArr);
   submitParameter(subArr)
 }
 </script>

@@ -28,7 +28,7 @@ async function submitData() {
   const res:any= await api.post('/user/register',{
     ...obj
   })
-  if (res?.code ===204) {
+  if (res?.code ===200) {
     ElMessage.success('注册成功！！')
   }else {
     ElMessage.error('注册失败！！')

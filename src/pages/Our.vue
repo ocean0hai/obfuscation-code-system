@@ -7,7 +7,7 @@ import Paramer from '@/components/our/Paramer.vue';
 <template>
   <div class="w-2/3 mx-auto">
     <UploadTable />
-    <Paramer ></Paramer>
+    <Paramer />
   </div>
 </template>
 
