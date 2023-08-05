@@ -47,11 +47,6 @@ const routes = [
       path:'filemanagement',
       name:'filemanagement',
       component:()=>import('@/pages/admin/FileManagement.vue')
-     },
-     {
-      path:'dataanalysis',
-      name:'dataanalysis',
-      component:()=>import('@/pages/admin/DataAnalysis.vue')
      }
     ]
   },

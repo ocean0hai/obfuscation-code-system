@@ -20,7 +20,7 @@ api.interceptors.response.use((response: any) => {
       console.log(response.data)
     return response.data
   }else{
-    ElMessage.error(response.data.msg as string)
+    console.log(response.data.msg as string)
     return ;
   }
 });

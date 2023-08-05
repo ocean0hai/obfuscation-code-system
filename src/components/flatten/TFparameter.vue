@@ -14,7 +14,7 @@ function submitHandle(){
 
 <template>
   <div class="my-5">
-    <HandleInput v-model="name"></HandleInput>
+    <HandleInput name="指定需要偏平化函数" v-model="name"></HandleInput>
     <div class=" w-full mb-5 h-16">
       <Button @click="submitHandle" class="float-right"></Button>
     </div>

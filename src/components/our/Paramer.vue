@@ -20,7 +20,7 @@ function submitHandle(){
     number.value+''
   ]
   console.log(subArr);
-  submitParameter(subArr)
+  submitParameter(subArr,"1")
 }
 </script>
 

@@ -19,8 +19,8 @@ export default defineConfig({
   server: {
     //中转服务器
     port: 8800, // 你需要定义的端口号
-    origin: "http://127.0.0.1:8800",
-    host:'0.0.0.0',
+    // origin: "http://127.0.0.1:8800",
+    // host:'0.0.0.0',
     proxy: {
       //通过代理实现跨域
       "/api": {

@@ -54,7 +54,7 @@ const menudata=reactive({
     icon:"icon-park-twotone:file-protection"
   },
   {
-    label: "EncodeLiterals(指令替换)",
+    label: "EncodeArithmetic(指令替换)",
     url: "encodeliterals",
     icon:"icon-park-solid:file-protection-one"
   }],

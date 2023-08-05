@@ -15,7 +15,7 @@ function submitHandle(){
 
 <template>
   <div>
-    <HandleInput v-model="name" />
+    <HandleInput name="指定需要指令替换函数" v-model="name" />
     <div class=" w-full h-16">
       <Button @click="submitHandle" class="float-right"></Button>
     </div>

@@ -7,9 +7,7 @@ import ChartLint from '@/components/history/ChartLint.vue';
 
 <template>
   <div>
-    <div class="h-[300px] mb-3">
-      <ChartLint />
-    </div>
+
   <Historytable />
   </div>
 </template>

@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { defineProps,watch,computed, ref } from 'vue';
+import { defineProps,computed } from 'vue';
 const emits:any=defineEmits()
 
 const props=defineProps<{
     modelValue: String,
+    name:string
 }>()
 
 const proxy=computed({
@@ -23,8 +24,8 @@ const proxy=computed({
           参数选择
         </h1>
         <div class="flex">
-            <div class="w-56">
-                <span class="block text-lg">指定需要添加谓词的函数</span>
+            <div class="mr-2">
+                <span class="block text-lg">{{ props.name }}</span>
                 <span class=" text-red-500">*默认为main(主函数) </span>
             </div>
             <div class="w-36">

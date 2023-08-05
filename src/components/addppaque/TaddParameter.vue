@@ -61,7 +61,7 @@ function submitHandle(){
     '3',
     InitOpaqueStructs.value,
     InitOpaqueCounts.value+'',
-    true,
+    AddOpaqueKinds.value,
     AddOpaqueCount.value+'',
     AddOpaqueStructs.value
   ]
@@ -73,7 +73,7 @@ function submitHandle(){
 
 <template>
   <div>
-    <HandleInput v-model="name"></HandleInput>
+    <HandleInput name="指定需要不透明谓词函数" v-model="name"></HandleInput>
     <div class="mt-10">
         <div class="my-5">
             -Transform=lnitOpaqueStructs:
@@ -85,22 +85,18 @@ function submitHandle(){
                 :value="item.value"
                 />
             </el-select>
-            <span class="block text-red-400 text-sm">*选择不透明表达式的生成方式</span>
         </div>
         <div class="my-5">
             --Transform=InitOpaqueCounts
             <el-input-number v-model="InitOpaqueCounts" :min="1" :max="100" /> 
-            <span class="block text-red-400 text-sm">*初始化不透明谓词的数目,默认值为1</span>
         </div>
         <div class="my-5">
             --Transform=AddOpaqueKinds:
-            <input type="checkbox" checked value="AddOpaqueKinds" >
-            <span class="block text-red-400 text-sm">*添加的不透明谓词类型</span>
+            <input type="checkbox" v-model="AddOpaqueKinds" checked >
         </div>
         <div class="my-5">
             --Transform=AddOpaqueCount:
             <el-input-number v-model="AddOpaqueCount" :min="1" :max="100" /> 
-            <span class="block text-red-400 text-sm">*需要添加的不透明谓词的数目,默认值为1</span>
         </div>
         <div class="my-5">
             --Transform=AddOpaqueStructs:
@@ -112,7 +108,6 @@ function submitHandle(){
                 :value="item.value"
                 />
             </el-select>
-            <span class="block text-red-400 text-sm">*选择需要添加的不透明谓词结构</span>
         </div>
     </div>
     <div class=" w-full h-16">

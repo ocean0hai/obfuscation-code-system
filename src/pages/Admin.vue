@@ -14,12 +14,7 @@ const menuArr=reactive([
     label:"文件管理",
     url:"filemanagement",
     icon:"ic:baseline-insert-drive-file"
-  },
-  {
-    label:"数据分析",
-    url:"dataanalysis",
-    icon:"streamline:interface-content-chart-product-data-analysis-analytics-graph-line-business-board-chart"
-  }
+  } 
 ])
 
 function clickMenu(url:string){
