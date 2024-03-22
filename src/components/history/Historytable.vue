@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
+import { onMounted,computed } from 'vue'
 import Button from '../common/Button.vue';
 import { getTableDate } from '@/hooks/getData';
 import Dialog from '../common/Dialog.vue';
@@ -15,7 +15,14 @@ const {
 
 onMounted(()=>{
   getData()
+  console.log(data.value);
 })
+
+// const rendData=computed(()=>{
+//   return data.value.filter((item)=> {
+//     return item.originalFileName !== '文件尚未混淆'} )
+// })
+console.log(rendData);
 
 </script>
 

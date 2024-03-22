@@ -16,6 +16,9 @@ export default defineConfig({
       plugins: [autoprefixer, tailwindcss],
     },
   },
+  build: {
+    minify: false,
+  },
   server: {
     //中转服务器
     port: 8800, // 你需要定义的端口号

@@ -80,13 +80,14 @@ function clickMenu(item:string) {
 }
 
 
-const active = computed(() => route.name); // 需要使用computed才可以获取，不然会是undefined
+const active = computed(() => route.name); 
+// 需要使用computed才可以获取，不然会是undefined
 
 </script>
 
 <style>
 .el-menu-vertical{
-  width: 220px;
+  width: 230px;
   font-size: 10px;
   margin-right: 10px;
 }

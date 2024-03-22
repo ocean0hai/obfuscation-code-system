@@ -15,9 +15,6 @@ export function getTableDate(address:string){
         fileName:search.value
       }
     })
-    console.log(res);
-    
-    
     if (res?.code===200) {
       const {total,records}=res.data
       datatotal.value=total
